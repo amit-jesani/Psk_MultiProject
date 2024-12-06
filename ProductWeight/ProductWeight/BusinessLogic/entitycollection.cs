@@ -2,8 +2,7 @@
 {
     public class entitycollection
     {
-        // add comment
-        // add comment 2
+        // This class is used to store the entity collection
 
     }
 }
