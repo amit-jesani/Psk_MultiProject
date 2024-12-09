@@ -1,0 +1,55 @@
+name: ChatGPT Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull Request Number (for manual run)"
+        required: false
+        type: string
+ 
+jobs:
+  chatgpt_code_review:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Install dependencies
+      - name: Install Dependencies
+        working-directory: ./scripts
+        run: npm install
+
+      # Fetch pull request details
+      - name: Fetch Pull Request Details
+        id: pr_details
+        run: |
+          echo "Fetching Pull Request Details..."
+          PR_NUMBER="${{ github.event.pull_request.number || github.event.inputs.pr_number }}"
+          if [[ -z "$PR_NUMBER" ]]; then
+            echo "Error: No Pull Request Number provided."
+            exit 1
+          fi
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_ACCESS }}
+
+      # Run the ChatGPT Code Review script
+      - name: Run ChatGPT Code Review
+        working-directory: ./scripts
+        run: node review.mjs
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_ACCESS }}
+          REPO_NAME: ${{ github.repository }}
+          PR_NUMBER: ${{ env.PR_NUMBER }}
