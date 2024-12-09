@@ -1,0 +1,13 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+*.csproj.user
+
+# Build results
+bin/
+obj/
+
+# Packages
+packages/
