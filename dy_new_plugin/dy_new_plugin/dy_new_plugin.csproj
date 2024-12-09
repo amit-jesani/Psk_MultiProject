@@ -123,7 +123,7 @@
   <ItemGroup>
     <Compile Include="BusinessLogic\createContactBusinessLogic.cs" />
     <Compile Include="BusinessLogic\createInCRM.cs" />
-    <Compile Include="BusinessLogic\UpdateInCRM.cs" />
+    <!--<Compile Include="BusinessLogic\UpdateInCRM.cs" />-->
     <Compile Include="Plugins\create_contact_plugin.cs" />
     <Compile Include="Coree\CommonQueries.cs" />
     <Compile Include="Coree\Extensions.cs" />
