@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using System;
 
 namespace dy_new_plugin.BusinessLogic
@@ -60,21 +61,26 @@ namespace dy_new_plugin.BusinessLogic
             {
                 try
                 {
-                    EntityReference DemoEntityRef = _preImage.GetValue<EntityReference>("dt_demo_2id", null);
+                    EntityReference DemoEntityRef = _target.GetValue<EntityReference>("dt_demo_2id", null);
                     if (DemoEntityRef == null)
                     {
                         throw new InvalidPluginExecutionException("DemoEntityRef is null");
                     }
                     _context.Trace("DemoEntityRef: " + DemoEntityRef.Id);
 
-                    Entity deMOEntity = _context.Retrieve(DemoEntityRef, new string[] { "dt_demo_name" });
+                    Entity deMOEntity = _context.Service.Retrieve("dt_demo_2", DemoEntityRef.Id, new ColumnSet("dt_demo_name", "dt_demo_refernace"));
                     if (deMOEntity == null)
                     {
                         throw new InvalidPluginExecutionException("deMOEntity is null");
                     }
 
-                    deMOEntity["dt_demo_name"] = (_target.Contains("dt_demo_name") ? _target["dt_demo_name"] : _preImage["dt_demo_name"]);
-                    _context.Trace("DemoEntityRef: " + deMOEntity["dt_demo_name"]);
+                    deMOEntity.SetValue("dt_demo_name", _target["dt_demo_name"]);
+                    deMOEntity.SetValue("dt_demo_refernace", _target["dt_testparentrefernace"]);
+                    _context.Service.Update(deMOEntity);
+
+
+                    //deMOEntity["dt_demo_name"] = (_target.Contains("dt_demo_name") ? _target["dt_demo_name"] : _preImage["dt_demo_name"]);
+                    //_context.Trace("DemoEntityRef: " + deMOEntity["dt_demo_name"]);
 
                     //deMOEntity["dt_demo_refernace"] = (_target.Contains("dt_testparentrefernace") ? _target["dt_testparentrefernace"] : _preImage["dt_testparentrefernace"]);
 
@@ -82,7 +88,6 @@ namespace dy_new_plugin.BusinessLogic
                     //Guid id = _target.GetAttributeValue<EntityReference>("dt_testparentrefernace").Id;
                     //deMOEntity["dt_demo_refernace"] = new EntityReference("dt_testparentrefernace", id);
 
-                    _context.Service.Update(deMOEntity);
                 }
                 catch (Exception ex)
                 {
