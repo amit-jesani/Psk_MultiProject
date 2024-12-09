@@ -31,12 +31,12 @@ namespace dy_new_plugin.BusinessLogic
                         //demoentiti["dt_demo_refernace"] = _target["dt_testparentrefernace"];
 
                         // set lookup field
-                        Guid id = _target.GetValue<EntityReference>("dt_testparentrefernace", null).Id;
-                        demoentiti.SetValue("dt_demo_refernace", new EntityReference("cr4fb_test", id));
+                                Guid id = _target.GetValue<EntityReference>("dt_testparentrefernace", null).Id;
+                                    demoentiti.SetValue("dt_demo_refernace", new EntityReference("cr4fb_test", id));
 
 
 
-                        Guid DEMOid = _context.Service.Create(demoentiti);
+                                Guid DEMOid = _context.Service.Create(demoentiti);
 
                         //if (contactId != Guid.Empty)
                         //{
@@ -53,6 +53,7 @@ namespace dy_new_plugin.BusinessLogic
                  }
 
         // update demo entity when the demo_fabs is updated
+        
         public void updateDEmo()
         {
             if (_target.LogicalName == "dt_demo_fab" && _context.MessageName == "Update")
