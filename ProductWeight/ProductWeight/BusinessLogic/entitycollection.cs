@@ -9,5 +9,7 @@
         public string weight;
 
         public string price;
+
+        public string category;
     }
 }
