@@ -13,7 +13,15 @@ public class Class1
 
         // create method for diff
         public int Diff(int a, int b)
-        { return a - b; }
+        { 
+            return a - b; 
+        }
+
+        // create method for multiplication
+        public int Multiply(int a, int b)
+        {
+            return a * b;
+        }
 
     }
 }
