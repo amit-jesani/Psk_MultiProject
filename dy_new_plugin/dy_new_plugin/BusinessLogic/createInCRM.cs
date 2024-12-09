@@ -60,22 +60,32 @@ namespace dy_new_plugin.BusinessLogic
                 try
                 {
                     EntityReference DemoEntityRef = _preImage.GetValue<EntityReference>("dt_demo_2id", null);
+                    if (DemoEntityRef == null)
+                    {
+                        throw new InvalidPluginExecutionException("DemoEntityRef is null");
+                    }
+                    _context.Trace("DemoEntityRef: " + DemoEntityRef.Id);
 
                     Entity deMOEntity = _context.Retrieve(DemoEntityRef, new string[] { "dt_demo_name" });
+                    if (deMOEntity == null)
+                    {
+                        throw new InvalidPluginExecutionException("deMOEntity is null");
+                    }
 
-                            deMOEntity["dt_demo_name"] = (_target.Contains("dt_demo_name") ? _target["dt_demo_name"] : _preImage["dt_demo_name"]);
+                    deMOEntity["dt_demo_name"] = (_target.Contains("dt_demo_name") ? _target["dt_demo_name"] : _preImage["dt_demo_name"]);
+                    _context.Trace("DemoEntityRef: " + deMOEntity["dt_demo_name"]);
+
                     //deMOEntity["dt_demo_refernace"] = (_target.Contains("dt_testparentrefernace") ? _target["dt_testparentrefernace"] : _preImage["dt_testparentrefernace"]);
 
                     // update lookup field using preimage
-                    Guid id = _target.GetAttributeValue<EntityReference>("dt_testparentrefernace").Id;
+                    //Guid id = _target.GetAttributeValue<EntityReference>("dt_testparentrefernace").Id;
                     //deMOEntity["dt_demo_refernace"] = new EntityReference("dt_testparentrefernace", id);
 
                     _context.Service.Update(deMOEntity);
-                             }
-
+                }
                 catch (Exception ex)
                 {
-            throw new InvalidPluginExecutionException(ex.Message);
+                    throw new InvalidPluginExecutionException(ex.Message);
                 }
             }
             else
@@ -83,6 +93,7 @@ namespace dy_new_plugin.BusinessLogic
                 throw new InvalidPluginExecutionException("This plugin is only for account entity and contact can't be created");
             }
         }
+
 
         //public void deleteaccount()
         //{
