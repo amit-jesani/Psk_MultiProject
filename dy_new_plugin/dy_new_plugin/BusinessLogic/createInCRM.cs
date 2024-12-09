@@ -61,14 +61,14 @@ namespace dy_new_plugin.BusinessLogic
                 {
                     EntityReference DemoEntityRef = _preImage.GetValue<EntityReference>("dt_demo_2id", null);
 
-                    Entity deMOEntity = _context.Retrieve(DemoEntityRef);
+                    Entity deMOEntity = _context.Retrieve(DemoEntityRef, new string[] { "dt_demo_name" });
 
                             deMOEntity["dt_demo_name"] = (_target.Contains("dt_demo_name") ? _target["dt_demo_name"] : _preImage["dt_demo_name"]);
-                    deMOEntity["dt_demo_refernace"] = (_target.Contains("dt_testparentrefernace") ? _target["dt_testparentrefernace"] : _preImage["dt_testparentrefernace"]);
+                    //deMOEntity["dt_demo_refernace"] = (_target.Contains("dt_testparentrefernace") ? _target["dt_testparentrefernace"] : _preImage["dt_testparentrefernace"]);
 
                     // update lookup field using preimage
                     Guid id = _target.GetAttributeValue<EntityReference>("dt_testparentrefernace").Id;
-                    deMOEntity["dt_demo_refernace"] = new EntityReference("dt_testparentrefernace", id);
+                    //deMOEntity["dt_demo_refernace"] = new EntityReference("dt_testparentrefernace", id);
 
                     _context.Service.Update(deMOEntity);
                              }
