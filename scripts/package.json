@@ -1,0 +1,12 @@
+{
+  "name": "chatgpt-code-review",
+  "version": "1.0.0",
+  "main": "review.mjs",
+  "scripts": {
+    "start": "node review.mjs"
+  },
+  "dependencies": {
+    "@octokit/rest": "^19.0.0",
+    "openai": "^3.2.1"
+  }
+}
