@@ -29,5 +29,7 @@ public class Class1
             return a / b;
         }
 
+        // create method for modulus
+
     }
 }
