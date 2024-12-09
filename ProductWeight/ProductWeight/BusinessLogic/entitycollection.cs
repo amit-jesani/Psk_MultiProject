@@ -11,5 +11,7 @@
         public string price;
 
         public string category;
+
+        public string subcategory;
     }
 }
