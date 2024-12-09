@@ -7,5 +7,7 @@
         public string name;
         public string description;
         public string weight;
+
+        public string price;
     }
 }
