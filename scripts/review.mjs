@@ -45,7 +45,7 @@ const prNumber = process.env.PR_NUMBER;
       // Review the patch (changes)
       if (file.patch) {
         try {
-          const patchReviewPrompt = `Review the following changes in the file "${file.filename}". Focus on bugs, improvements, and optimizations. Be concise:\n\n${file.patch}`;
+          const patchReviewPrompt = `Review the following changes in the file "${file.filename}". Focus on bugs, improvements, syntax and optimizations. Be concise:\n\n${file.patch}`;
           const patchReviewResponse = await openai.createChatCompletion({
             model: "gpt-4-turbo",
             messages: [{ role: "user", content: patchReviewPrompt }],
