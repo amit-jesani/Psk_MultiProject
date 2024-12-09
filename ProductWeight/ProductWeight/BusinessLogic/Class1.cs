@@ -23,5 +23,11 @@ public class Class1
             return a * b;
         }
 
+        // create method for division
+        public int Divide(int a, int b)
+        {
+            return a / b;
+        }
+
     }
 }
