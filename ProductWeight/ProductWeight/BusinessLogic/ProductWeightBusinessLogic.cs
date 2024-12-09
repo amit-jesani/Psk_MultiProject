@@ -10,6 +10,7 @@ namespace ProductWeight.BusinessLogic
 {
     // add comment
     // add comment 2
+    // add comment 3
     public class ProductWeightBusinessLogic
     {
         private PluginContext<Entity> _context;
